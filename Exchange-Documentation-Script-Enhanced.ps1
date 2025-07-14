@@ -279,12 +279,12 @@ function Get-ExchangeOnPremisesData {
         $servers = Get-ExchangeServer
         foreach ($server in $servers) {
             try {
-                $serverCerts = Get-ExchangeCertificate -Server $server.Name | Select-Object 
-                    @{N='Server';E={$server.Name}},
-                    Thumbprint, Subject, Issuer, NotBefore, NotAfter, Status, 
-                    Services, CertificateDomains, IsSelfSigned, HasPrivateKey,
-                    @{N='DaysUntilExpiry';E={($_.NotAfter - (Get-Date)).Days}},
-                    @{N='IsExpired';E={$_.NotAfter -lt (Get-Date)}},
+                $serverCerts = Get-ExchangeCertificate -Server $server.Name | Select-Object `
+                    @{N='Server';E={$server.Name}}, `
+                    Thumbprint, Subject, Issuer, NotBefore, NotAfter, Status, `
+                    Services, CertificateDomains, IsSelfSigned, HasPrivateKey, `
+                    @{N='DaysUntilExpiry';E={($_.NotAfter - (Get-Date)).Days}}, `
+                    @{N='IsExpired';E={$_.NotAfter -lt (Get-Date)}}, `
                     @{N='CollectedDate';E={Get-Date}}
                 $certs += $serverCerts
             }
